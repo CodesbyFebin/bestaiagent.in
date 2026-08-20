@@ -1,6 +1,0 @@
-{
-  "name": "BestAIAgent.in",
-  "description": "The world's largest AI Agent Operating System and Marketplace for discovering, comparing, and deploying autonomous AI agents, MCP servers, and workflows.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

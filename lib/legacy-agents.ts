@@ -1,0 +1,15 @@
+export const legacyAgentSources = [
+  { slug: "cursor", name: "Cursor", developer: "Cursor", sourceUrl: "https://cursor.com/docs", summary: "Coding-agent product with editor, terminal and agent workflows.", categories: ["coding"] },
+  { slug: "claude-code", name: "Claude Code", developer: "Anthropic", sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/overview", summary: "Anthropic coding-agent surface. Pricing and plan details are intentionally not copied without a fresh source check.", categories: ["coding", "cli"] },
+  { slug: "chatgpt", name: "ChatGPT", developer: "OpenAI", sourceUrl: "https://chatgpt.com/", summary: "General-purpose AI assistant surface. Product claims beyond identity stay unknown until sourced.", categories: ["general"] },
+  { slug: "claude", name: "Claude", developer: "Anthropic", sourceUrl: "https://claude.ai/", summary: "Anthropic assistant surface. Capabilities and plan details require field-level source evidence.", categories: ["general"] },
+  { slug: "vapi", name: "Vapi", developer: "Vapi", sourceUrl: "https://docs.vapi.ai/quickstart/introduction", summary: "Developer platform for building voice AI agents.", categories: ["voice"] },
+  { slug: "yellow-ai", name: "Yellow.ai", developer: "Yellow.ai", sourceUrl: "https://yellow.ai/", summary: "Enterprise conversational-AI platform retained for legacy URL continuity; field verification is pending.", categories: ["customer-support", "voice"] },
+  { slug: "flowise-ai", name: "Flowise", developer: "Flowise", sourceUrl: "https://flowiseai.com/", summary: "Open-source visual platform for agentic systems; current product status must be read from its first-party source.", categories: ["automation", "builder"] },
+  { slug: "reclaim-ai", name: "Reclaim", developer: "Reclaim.ai", sourceUrl: "https://help.reclaim.ai/en/", summary: "Calendar assistant retained for legacy URL continuity; detailed claims remain source-dependent.", categories: ["productivity"] },
+  { slug: "n8n", name: "n8n", developer: "n8n", sourceUrl: "https://n8n.io/", summary: "Workflow automation platform with AI integrations. Licensing, pricing and deployment details are not inferred here.", categories: ["automation"] },
+  { slug: "relevance-ai", name: "Relevance AI", developer: "Relevance AI", sourceUrl: "https://relevanceai.com/", summary: "AI-agent platform retained for legacy URL continuity; detailed claims await source verification.", categories: ["business"] },
+  { slug: "windsurf", name: "Windsurf", developer: "Windsurf", sourceUrl: "https://windsurf.com/", summary: "Coding-agent product retained for legacy URL continuity; current ownership and plan details require fresh evidence.", categories: ["coding"] },
+  { slug: "retell-ai", name: "Retell AI", developer: "Retell AI", sourceUrl: "https://www.retellai.com/", summary: "Voice-agent platform retained for legacy URL continuity; pricing and performance claims are intentionally omitted.", categories: ["voice"] }
+] as const;
+

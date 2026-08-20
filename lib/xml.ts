@@ -1,0 +1,2 @@
+export function xmlUrlset(urls:string[]){const esc=(s:string)=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u)=>`  <url><loc>${esc(u)}</loc><lastmod>2026-08-20</lastmod></url>`).join("\n")}\n</urlset>`}
+export function xmlResponse(urls:string[]){return new Response(xmlUrlset(urls),{headers:{"Content-Type":"application/xml; charset=utf-8","Cache-Control":"public, max-age=3600"}})}
