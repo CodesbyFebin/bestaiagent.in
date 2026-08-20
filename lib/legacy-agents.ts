@@ -1,5 +1,4 @@
 export const legacyAgentSources = [
-  { slug: "cursor", name: "Cursor", developer: "Cursor", sourceUrl: "https://cursor.com/docs", summary: "Coding-agent product with editor, terminal and agent workflows.", categories: ["coding"] },
   { slug: "claude-code", name: "Claude Code", developer: "Anthropic", sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/overview", summary: "Anthropic coding-agent surface. Pricing and plan details are intentionally not copied without a fresh source check.", categories: ["coding", "cli"] },
   { slug: "chatgpt", name: "ChatGPT", developer: "OpenAI", sourceUrl: "https://chatgpt.com/", summary: "General-purpose AI assistant surface. Product claims beyond identity stay unknown until sourced.", categories: ["general"] },
   { slug: "claude", name: "Claude", developer: "Anthropic", sourceUrl: "https://claude.ai/", summary: "Anthropic assistant surface. Capabilities and plan details require field-level source evidence.", categories: ["general"] },
@@ -12,4 +11,3 @@ export const legacyAgentSources = [
   { slug: "windsurf", name: "Windsurf", developer: "Windsurf", sourceUrl: "https://windsurf.com/", summary: "Coding-agent product retained for legacy URL continuity; current ownership and plan details require fresh evidence.", categories: ["coding"] },
   { slug: "retell-ai", name: "Retell AI", developer: "Retell AI", sourceUrl: "https://www.retellai.com/", summary: "Voice-agent platform retained for legacy URL continuity; pricing and performance claims are intentionally omitted.", categories: ["voice"] }
 ] as const;
-
