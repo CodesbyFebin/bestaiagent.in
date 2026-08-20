@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
     title: `${name} — AI agent evidence`,
     description: summary,
     alternates: { canonical: `/agents/${slug}` },
-    robots: { index: Boolean(entity?.verification === "verified" || legacy), follow: true }
+    robots: { index: Boolean(entity?.verification === "verified"), follow: true }
   };
 }
 
@@ -45,7 +45,7 @@ export default async function Page({ params }: P) {
         <div className="tagRow"><StatusBadge state="source-linked" />{legacy.categories.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
         <p><a className="button" href={legacy.sourceUrl}>First-party source ↗</a></p>
       </section>
-      <p className="warning">This URL is preserved from the legacy production sitemap. Old BestAI scores, INR pricing and benchmark winner claims were intentionally removed. New field-level evidence is being built from primary sources.</p>
+      <p className="warning">This URL is preserved for continuity but is noindex until hashed primary evidence passes the publication gate. Old BestAI scores, INR pricing and benchmark winner claims were intentionally removed.</p>
     </div>;
   }
 

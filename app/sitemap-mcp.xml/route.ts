@@ -1,1 +1,1 @@
-import { mcpServers } from "@/lib/mcp";import { SITE } from "@/lib/site";import { xmlResponse } from "@/lib/xml";export const dynamic="force-static";export async function GET(){return xmlResponse([`${SITE.url}/mcp`,`${SITE.url}/mcp/servers`,...mcpServers.map((item)=>`${SITE.url}/mcp/servers/${item.slug}`)])}
+import { SITE } from "@/lib/site";import { xmlResponse } from "@/lib/xml";export const dynamic="force-static";export async function GET(){return xmlResponse([`${SITE.url}/mcp`,`${SITE.url}/mcp/servers`])}
