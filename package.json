@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "description": "Evidence-first authority graph for AI agents, models, frameworks, providers and MCP infrastructure.",
-  "engines": { "node": ">=20.9.0" },
+  "engines": { "node": "22.x" },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

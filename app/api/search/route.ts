@@ -1,0 +1,1 @@
+import { publicEntities } from "@/lib/catalog";export async function GET(request:Request){const q=new URL(request.url).searchParams.get("q")?.trim().toLowerCase()??"";const results=q?publicEntities.filter((e)=>`${e.name} ${e.developer} ${e.summary} ${e.categories.join(" ")}`.toLowerCase().includes(q)).slice(0,50):[];return Response.json({query:q,count:results.length,results})}
