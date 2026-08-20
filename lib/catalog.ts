@@ -1,12 +1,15 @@
 import type { Entity, EntityType, EvidenceRecord } from "@/lib/catalog-types";
-import { evidence } from "@/lib/evidence";
-import { entities } from "@/lib/entities";
+import { evidence as baseEvidence } from "@/lib/evidence";
+import { entities as baseEntities } from "@/lib/entities";
 import { legacyAgentSources } from "@/lib/legacy-agents";
+import { recoveryEntities } from "@/lib/recovery-entities";
+import { recoveryEvidence } from "@/lib/recovery-evidence";
 
 export type { Entity, EntityType, EvidenceRecord, EvidenceAuthority, VerificationState } from "@/lib/catalog-types";
-export { evidence } from "@/lib/evidence";
-export { entities } from "@/lib/entities";
 export { legacyAgentSources } from "@/lib/legacy-agents";
+
+export const evidence: EvidenceRecord[] = [...baseEvidence, ...recoveryEvidence];
+export const entities: Entity[] = [...baseEntities, ...recoveryEntities];
 
 export const getEvidence = (entityId: string) => evidence.filter((item) => item.entityId === entityId);
 export const isValidHash = (hash: string) => /^sha256:[0-9a-f]{64}$/.test(hash);
