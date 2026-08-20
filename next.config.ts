@@ -10,7 +10,33 @@ const nextConfig: NextConfig = {
       { source: "/best-ai-agent-frameworks", destination: "/frameworks", permanent: true },
       { source: "/agents/crewai", destination: "/frameworks/crewai", permanent: true },
       { source: "/agents/langgraph", destination: "/frameworks/langgraph", permanent: true },
-      { source: "/agents/autogen", destination: "/frameworks/autogen", permanent: true }
+      { source: "/agents/autogen", destination: "/frameworks/autogen", permanent: true },
+      { source: "/rankings", destination: "/ai-agent-rankings", permanent: true },
+      { source: "/cursor-ai", destination: "/agents/cursor", permanent: true }
+    ];
+  },
+  async rewrites() {
+    return [
+      { source: "/blog-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/image-sitemap.xml", destination: "/sitemap.xml" },
+      { source: "/free-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/coding-sitemap.xml", destination: "/sitemap-agents.xml" },
+      { source: "/research-sitemap.xml", destination: "/sitemap-research.xml" },
+      { source: "/reddit-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/industry-sitemap.xml", destination: "/sitemap-categories.xml" },
+      { source: "/longtail-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/entity-sitemap.xml", destination: "/sitemap.xml" },
+      { source: "/calculators-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/hub-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/author-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/mcp-sitemap.xml", destination: "/sitemap-mcp.xml" },
+      { source: "/glossary-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/tutorials-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/alternatives-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/pricing-sitemap.xml", destination: "/sitemap-pages.xml" },
+      { source: "/comparison-sitemap.xml", destination: "/sitemap-comparisons.xml" },
+      { source: "/tool-sitemap.xml", destination: "/sitemap.xml" },
+      { source: "/ai-agent-sitemap.xml", destination: "/sitemap-agents.xml" }
     ];
   },
   async headers() {
