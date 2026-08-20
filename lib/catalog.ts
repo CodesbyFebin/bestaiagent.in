@@ -1,17 +1,22 @@
 import type { Entity, EntityType, EvidenceRecord } from "@/lib/catalog-types";
 import { evidence as baseEvidence } from "@/lib/evidence";
 import { entities as baseEntities } from "@/lib/entities";
-import { legacyAgentSources } from "@/lib/legacy-agents";
 import { recoveryEntities } from "@/lib/recovery-entities";
-import { recoveryEvidence } from "@/lib/recovery-evidence";
+import { recoveryEvidence, slugEvidence } from "@/lib/recovery-evidence";
 
 export type { Entity, EntityType, EvidenceRecord, EvidenceAuthority, VerificationState } from "@/lib/catalog-types";
 export { legacyAgentSources } from "@/lib/legacy-agents";
+export { slugEvidence } from "@/lib/recovery-evidence";
 
 export const evidence: EvidenceRecord[] = [...baseEvidence, ...recoveryEvidence];
 export const entities: Entity[] = [...baseEntities, ...recoveryEntities];
 
 export const getEvidence = (entityId: string) => evidence.filter((item) => item.entityId === entityId);
+/** Look up evidence receipts by their record id (e.g. "ev-cursor-pricing-india"). */
+export const getEvidenceByIds = (ids: string[]) =>
+  ids.map((id) => evidence.find((item) => item.id === id)).filter((item): item is EvidenceRecord => Boolean(item));
+/** Get the evidence receipts attached to a /<slug> authority page via the slugEvidence map. */
+export const getSlugEvidence = (slug: string) => getEvidenceByIds(slugEvidence[slug] ?? []);
 export const isValidHash = (hash: string) => /^sha256:[0-9a-f]{64}$/.test(hash);
 export const isEvidenceVerified = (item: EvidenceRecord) =>
   item.status === "verified" &&

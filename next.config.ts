@@ -12,7 +12,31 @@ const nextConfig: NextConfig = {
       { source: "/agents/langgraph", destination: "/frameworks/langgraph", permanent: true },
       { source: "/agents/autogen", destination: "/frameworks/autogen", permanent: true },
       { source: "/rankings", destination: "/ai-agent-rankings", permanent: true },
-      { source: "/cursor-ai", destination: "/agents/cursor", permanent: true }
+      { source: "/cursor-ai", destination: "/agents/cursor", permanent: true },
+      // Legacy /tools/* URLs from the previous site build — preserve Search-equity
+      // by redirecting to the canonical framework or agent entity rather than 404.
+      // The analysis only proved value on the entries listed below; speculative
+      // /tools/* redirects for unverified products are intentionally NOT added.
+      { source: "/tools/cursor", destination: "/agents/cursor", permanent: true },
+      { source: "/tools/cursor-ai", destination: "/agents/cursor", permanent: true },
+      { source: "/tools/crewai", destination: "/frameworks/crewai", permanent: true },
+      { source: "/tools/langgraph", destination: "/frameworks/langgraph", permanent: true },
+      { source: "/tools/autogen", destination: "/frameworks/autogen", permanent: true },
+      { source: "/tools/langchain", destination: "/frameworks/langchain", permanent: true },
+      { source: "/tools/microsoft-agent-framework", destination: "/frameworks/microsoft-agent-framework", permanent: true },
+      // Comparison canonical direction — consolidate reordered/inverse duplicates
+      // onto the single canonical slug already present in lib/comparisons.ts.
+      // The canonical direction is alphabetical-ish (a-vs-b), so reverse
+      // pairings 301 to the published comparison route.
+      { source: "/compare/autogen-vs-crewai", destination: "/compare/crewai-vs-autogen", permanent: true },
+      { source: "/compare/crewai-vs-langgraph", destination: "/compare/langgraph-vs-crewai", permanent: true },
+      { source: "/compare/langchain-vs-langgraph", destination: "/compare/langgraph-vs-langchain", permanent: true },
+      // Hub consolidations — historical hub URLs that already have a canonical
+      // equivalent under /categories or /mcp/servers. Redirect rather than
+      // create duplicate content.
+      { source: "/coding-agents-hub", destination: "/categories/coding-agents", permanent: true },
+      { source: "/coding-agents-hub/", destination: "/categories/coding-agents", permanent: true },
+      { source: "/best-mcp-servers", destination: "/mcp/servers", permanent: true }
     ];
   },
   async rewrites() {
