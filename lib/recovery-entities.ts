@@ -13,9 +13,13 @@ export const recoveryEntities: Entity[] = [
     sourceLabel: "Official documentation",
     categories: ["coding", "ide"],
     verification: "verified",
-    evidenceIds: ["ev-cursor"],
+    evidenceIds: ["ev-cursor", "ev-cursor-pricing-india"],
     facts: {
-      productType: "coding agent"
+      productType: "coding agent",
+      indiaStartPlan: "Cursor Start (₹649/mo tax inclusive, billed monthly in INR)",
+      proPlan: "$20/mo (billed before tax)",
+      proPlusPlan: "$60/mo (billed before tax)",
+      ultraPlan: "$200/mo (billed before tax)"
     }
   }
 ];

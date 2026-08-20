@@ -11,7 +11,7 @@ export const categories = [
   ["automation", "Automation agents", "Workflow automation and agent orchestration tools."]
 ] as const;
 
-export const legacyPages: Record<string, { title: string; description: string; body: string[]; index: boolean }> = {
+export const legacyPages: Record<string, { title: string; description: string; body: string[]; index: boolean; evidenceIds?: string[]; aeo?: { question: string; answer: string }; pricingItems?: { name: string; price: string; tax?: string; billing?: string; payment?: string; note?: string }[]; seeAlso?: { href: string; label: string }[] }> = {
   "best-ai-agent": {
     title: "How to choose the best AI agent",
     description: "Evidence-first checklist for selecting an AI agent without relying on synthetic scores.",
@@ -55,22 +55,61 @@ export const legacyPages: Record<string, { title: string; description: string; b
     index: true
   },
   "cursor-pricing": {
-    title: "Cursor pricing source",
-    description: "Current Cursor pricing should be verified at the first-party source.",
-    body: ["The legacy numeric price snapshot was removed. Use Cursor's official models and pricing documentation for current plan information."],
-    index: true
+    title: "Cursor Pricing in India (2026): ₹649 Start Plan, Pro & UPI Billing",
+    description: "Current Cursor pricing with dated primary-source evidence: the India-only Cursor Start plan at ₹649/month tax-inclusive billed in INR via UPI, and Pro/Pro Plus/Ultra plans in USD.",
+    body: [
+      "Retrieved 2026-08-20 from Cursor's first-party models-and-pricing documentation. Pricing is a high-freshness field — verify at the source before any procurement decision.",
+      "Cursor now offers an India-specific individual plan called Cursor Start: ₹649 per month, tax-inclusive, billed monthly in INR. It is available strictly to developers in India and accepts UPI, credit card, or debit card. Every other individual Cursor plan displays its price before tax.",
+      "For comparison, the global individual plans are Pro at $20/month, Pro Plus at $60/month, and Ultra at $200/month, all billed before tax. Teams plans are Standard at $40/user/month and Premium at $120/user/month.",
+      "Cursor Start's INR, tax-inclusive, UPI-supported billing means Indian developers do not need a foreign-currency card to start. Pro/Pro Plus/Ultra remain USD-denominated, so treat any INR figure other than ₹649 as a manual currency conversion rather than an official Cursor price."
+    ],
+    index: true,
+    evidenceIds: ["ev-cursor-pricing-india"],
+    pricingItems: [
+      { name: "Cursor Start (India only)", price: "₹649/mo", tax: "tax inclusive", billing: "monthly in INR", payment: "UPI, credit or debit card", note: "Available strictly to developers in India" },
+      { name: "Pro", price: "$20/mo", tax: "before tax" },
+      { name: "Pro Plus", price: "$60/mo", tax: "before tax" },
+      { name: "Ultra", price: "$200/mo", tax: "before tax" },
+      { name: "Teams Standard", price: "$40/user/mo", billing: "per user" },
+      { name: "Teams Premium", price: "$120/user/mo", billing: "per user" }
+    ],
+    seeAlso: [{ href: "/agents/cursor", label: "Cursor — verified agent identity" }]
   },
   "github-copilot-pricing": {
-    title: "GitHub Copilot pricing source",
-    description: "Current GitHub Copilot pricing should be verified at GitHub.",
-    body: ["The legacy numeric price snapshot was removed because pricing is time-sensitive. Verify the current plan at GitHub's official product documentation."],
-    index: true
+    title: "GitHub Copilot Pricing (2026): Free, Pro, Pro+ and Max Plans",
+    description: "Verified GitHub Copilot individual plan prices from GitHub's first-party plans page: Free $0, Pro $10, Pro+ $39, Max $100 per user per month.",
+    body: [
+      "Retrieved 2026-08-20 from GitHub's official Copilot plans page. Vendor pricing changes; verify at GitHub before procurement.",
+      "GitHub Copilot's public individual tiers are: Free at $0 per month for getting started, Pro at $10 per user per month for everyday coding with agents, Pro+ at $39 per user per month for more complex development, and Max at $100 per user per month for sustained, high-volume agent workflows.",
+      "Copilot Business and Copilot Enterprise bill per seat per month but their per-seat amounts are published separately on GitHub; this page does not assert specific Business/Enterprise figures because they were not surfaced on the individual plans page. Check GitHub for current organizational pricing.",
+      "BestAIAgent.in does not convert USD plan prices into INR; the only India-specific Cursor (vendor) plan price on this site is Cursor Start's ₹649/month, surfaced on the /cursor-pricing page."
+    ],
+    index: true,
+    evidenceIds: ["ev-github-copilot-pricing"],
+    pricingItems: [
+      { name: "Free", price: "$0/mo", note: "For getting started" },
+      { name: "Pro", price: "$10/user/mo", note: "Everyday coding with agents" },
+      { name: "Pro+", price: "$39/user/mo", note: "More complex development" },
+      { name: "Max", price: "$100/user/mo", note: "Sustained, high-volume agent workflows" }
+    ]
   },
   "claude-code-pricing": {
-    title: "Claude Code pricing source",
-    description: "Current Claude Code cost depends on Anthropic plans and usage; verify first-party documentation.",
-    body: ["No fixed INR price is asserted here. Check Anthropic's official documentation for the current billing model."],
-    index: true
+    title: "Claude Code & Claude Pricing (2026): Pro, Max and Code Inclusion",
+    description: "Verified Anthropic Claude plan prices: Free $0, Pro $20/month (or ~$17/month billed annually), Max from $100/month. Claude Code is included with all paid Claude plans.",
+    body: [
+      "Retrieved 2026-08-20 from Anthropic's first-party Claude pricing page. Vendor pricing changes; verify at claude.com before procurement.",
+      "Anthropic's public Claude tiers are: Free at $0 per month, Pro at $20 per month — or effectively ~$17 per month when billed annually at $200 upfront — and Max starting from $100 per month, with higher-usage Max (20x) tiers available above the base Max (5x) entry point.",
+      "Claude Code, Anthropic's CLI/terminal coding agent, is included with all paid Claude plans and shares the same usage limits as the rest of the plan. When usage limits are reached, usage credits at standard API rates or pay-as-you-go Console credits may be enabled rather than hard-stopping work.",
+      "This page does not assert a fixed INR price for Claude or Claude Code; the only India-specific vendor plan price published on this site is Cursor Start's ₹649/month (see /cursor-pricing)."
+    ],
+    index: true,
+    evidenceIds: ["ev-claude-code-pricing"],
+    pricingItems: [
+      { name: "Free", price: "$0/mo" },
+      { name: "Pro", price: "$20/mo", note: "or ~$17/mo billed annually ($200 upfront)" },
+      { name: "Max (5x)", price: "From $100/mo", note: "Higher 20x usage tier available" }
+    ],
+    seeAlso: [{ href: "/cursor-pricing", label: "Cursor pricing (India ₹649 plan)" }]
   },
   "reviews": {
     title: "Reviews and evidence",
@@ -173,5 +212,75 @@ export const legacyPages: Record<string, { title: string; description: string; b
     description: "Builder-oriented agent frameworks, MCP infrastructure and development tools.",
     body: ["This hub connects framework, MCP and coding-agent content without duplicating canonical entity pages."],
     index: true
+  },
+  "crewai-full-form": {
+    title: "What does CrewAI stand for? Full form and framework definition",
+    description: "CrewAI is the framework's product name; CrewAI does not publish an expanded acronym. Core primitives: Agent, Crew, Flow, Task, Process, Tool.",
+    body: [
+      "CrewAI is the name of the multi-agent Python framework, not an official acronym with a documented expanded form. CrewAI's first-party documentation describes the framework as building collaborative AI agents, crews and flows — production ready from day one, and does not present a backronym such as Crew Artificial Intelligence.",
+      "The core conceptual primitives CrewAI introduces are Agent (compose agents with tools, memory, knowledge, and structured outputs), Crew (the central orchestration unit that brings agents and tasks together), Flow (orchestrate start/listen/router steps and manage stateful long-running workflows), and Task paired with Process (define sequential, hierarchical or hybrid execution with guardrails and human-in-the-loop).",
+      "So if you came here looking for the CrewAI full form, the short answer is: CrewAI has no documented expanded acronym. Use the in-text answer above for attributed citations; for the underlying source, verify against CrewAI's official documentation."
+    ],
+    index: true,
+    evidenceIds: ["ev-crewai-definition"],
+    aeo: { question: "What does CrewAI stand for / what is the full form of CrewAI?", answer: "CrewAI is the name of the multi-agent framework, not an official acronym with a documented expanded full form; crew AI's official documentation presents its core primitives as Agent, Crew, Flow, Task and Process." },
+    seeAlso: [{ href: "/frameworks/crewai", label: "CrewAI — framework evidence page" }]
+  },
+  "best-free-ai-agents": {
+    title: "Best free AI agents (2026): open-source coding, research and automation tools",
+    description: "An evidence-first shortlist of free and open-source AI agents — including repository-backed coding agents, research agents and browser/automation tooling — without fabricated rankings.",
+    body: [
+      "Free and open-source AI agents are listed here only when repository identity is verified. The page deliberately does not rank agents by popularity or assign a universal numeric score.",
+      "Verified open-source coding agents currently in the graph include OpenHands, Cline, Aider, Gemini CLI and Qwen Code. Each has a public upstream repository recorded as evidence rather than inferred from marketing.",
+      "For research and automation, GPT Researcher and Browser Use are open-source projects with public upstream repositories. Treat capability and performance claims as unknown until reproduced; see the methodology page for the discovery-to-publication pipeline."
+    ],
+    index: true,
+    seeAlso: [{ href: "/agents", label: "All verified agents" }, { href: "/methodology", label: "Evidence methodology" }]
+  },
+  "what-is-mcp": {
+    title: "What is MCP? The Model Context Protocol, explained",
+    description: "MCP (Model Context Protocol) is an open standard for connecting AI agents to tools, data sources and resources. Explainer covering clients, servers, transports and India-relevant use cases.",
+    body: [
+      "MCP — the Model Context Protocol — is an open standard for connecting AI assistants and agents to external tools, data sources and resources in a standardised, auditable way. It separates a client (the assistant or agent runtime) from servers (the integrations that expose tools, prompts and resources).",
+      "An MCP server registers tools, prompts and resources that the client can call. Tool calls return results the agent can act on; resources expose data the agent can read; prompts expose reusable templates. Transports include stdio for local servers and HTTP/SSE for remote servers.",
+      "On this site the MCP directory lists servers with source-linked identities. Qualified servers appear on the candidates sitemap; unverified MCP detail routes are kept out of indexable XML until canonical upstreams are confirmed.",
+      "India-relevant MCP use cases include local-language tooling, DPDP-aware data handling and self-hostable servers — none of which are inferred without a dated primary source."
+    ],
+    index: true,
+    seeAlso: [{ href: "/mcp", label: "MCP hub" }, { href: "/mcp/servers", label: "MCP server directory" }]
+  },
+  "ai-agent-benchmarks": {
+    title: "AI agent benchmarks: methodology before scores",
+    description: "Why BestAIAgent.in does not publish synthetic AI-agent benchmark numbers, and what a reproducible AI-agent benchmark must include.",
+    body: [
+      "BestAIAgent.in does not publish synthetic AI-agent benchmark numbers without a reproducible methodology. The historical numeric comparisons were not migrated because the underlying prompts, inputs and scoring code were not public enough to reproduce.",
+      "A reproducible AI-agent benchmark should publish task set, inputs, versions, model identifiers, hardware, prompts, outputs, scoring code and run environment. Leaderboard claims that omit these cannot be independently validated and are not surfaced as facts.",
+      "For India-specific local-LLM serving, the local-llm-benchmarks-india page acts as a reproducibility checklist and links to verified model cards. Use the Agents directory for repository-backed identities and the Compare section for evidence-ready comparisons."
+    ],
+    index: true,
+    seeAlso: [{ href: "/methodology", label: "Evidence methodology" }, { href: "/local-llm-benchmarks-india", label: "Local LLM benchmarks in India" }]
+  },
+  "ai-agent-market-map": {
+    title: "AI agent market map: an evidence-first taxonomy",
+    description: "A taxonomy of the AI-agent ecosystem across coding, research, browser, orchestration, voice and India/Indic tooling — organised by verified entity identity rather than synthetic market-share estimates.",
+    body: [
+      "This market map is organised by verified entity identity, not synthetic market-share estimates. The ecosystem is broken into coding agents, research agents, browser/automation agents, orchestration frameworks, voice platforms, models and providers.",
+      "Within coding agents, repository-verified open-source projects include OpenHands, Cline, Aider, Gemini CLI and Qwen Code. Within orchestration, LangGraph, LangChain, Microsoft Agent Framework, AutoGen and CrewAI are repository-verified frameworks.",
+      "The India/Indic layer tracks Sarvam, AI4Bharat and Krutrim — all source-linked — without inferring compliance badges, sovereignty claims or market share from popularity. Unverified local vendors remain source-linked rather than verified.",
+      "Use the Agents, Models, Frameworks, Providers, India and MCP sections for the underlying entity pages. The map exists to navigate the graph rather than to declare winners."
+    ],
+    index: true,
+    seeAlso: [{ href: "/agents", label: "Agents" }, { href: "/frameworks", label: "Frameworks" }, { href: "/india", label: "India AI" }, { href: "/mcp", label: "MCP" }]
+  },
+  "glossary-hub": {
+    title: "AI agent glossary hub",
+    description: "Canonical AI-agent terminology hub: MCP, agentic workflows, Crews, Flows, evidence verification and other terms used across BestAIAgent.in.",
+    body: [
+      "The glossary hub centralises the terms used across the BestAIAgent.in authority graph. Definitions are short and attributed to their canonical page rather than repeated verbatim across thin pages.",
+      "Recurring terms include MCP (Model Context Protocol, explained on /what-is-mcp), Crew and Flow (CrewAI primitives, defined on /crewai-full-form), cache hit / miss (model layer), evidence receipt (methodology) and verification states (verified, source-linked, pending, unknown).",
+      "Glossary entries deliberately do not branch into individual keyword pages. Each term links to its canonical explainer so search equity consolidates rather than fragmenting into duplicate-canonical URLs."
+    ],
+    index: true,
+    seeAlso: [{ href: "/what-is-mcp", label: "What is MCP?" }, { href: "/crewai-full-form", label: "What does CrewAI stand for?" }, { href: "/methodology", label: "Evidence methodology" }]
   }
 };

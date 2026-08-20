@@ -3,10 +3,20 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { legacyPages } from "@/lib/legacy";
-import { entitiesByType } from "@/lib/catalog";
+import { entitiesByType, getSlugEvidence } from "@/lib/catalog";
 import { SITE } from "@/lib/site";
 
-type AuthorityPage = { title: string; description: string; body: string[]; index: boolean };
+type SeeAlso = { href: string; label: string };
+type AuthorityPage = {
+  title: string;
+  description: string;
+  body: string[];
+  index: boolean;
+  evidenceIds?: string[];
+  aeo?: { question: string; answer: string };
+  pricingItems?: { name: string; price: string; tax?: string; billing?: string; payment?: string; note?: string }[];
+  seeAlso?: SeeAlso[];
+};
 type P = { params: Promise<{ slug: string }> };
 
 const recoveryPages: Record<string, AuthorityPage> = {
@@ -50,14 +60,75 @@ export default async function Page({ params }: P) {
   if (!page) notFound();
   const models = entitiesByType("model");
   const url = `${SITE.url}/${slug}`;
+  const evidence = getSlugEvidence(slug);
+  const jsonLd: Record<string, unknown> = {
+    "@type": "WebPage",
+    name: page.title,
+    url,
+    description: page.description,
+    isPartOf: { "@type": "WebSite", name: "BestAIAgent.in", url: SITE.url }
+  };
+  if (page.aeo) {
+    jsonLd.mainEntity = {
+      "@type": "Question",
+      name: page.aeo.question,
+      acceptedAnswer: { "@type": "Answer", text: page.aeo.answer }
+    };
+  }
   return <div className="shell detail">
     <div className="breadcrumbs"><Link href="/">Home</Link> / {page.title}</div>
-    <JsonLd data={{ "@type": "WebPage", name: page.title, url, description: page.description, isPartOf: { "@type": "WebSite", name: "BestAIAgent.in", url: SITE.url } }} />
+    <JsonLd data={jsonLd} />
     <p className="eyebrow">Authority page</p>
     <h1 style={{ fontSize: "48px" }}>{page.title}</h1>
     <p className="lead">{page.description}</p>
     <div className="prose">
       {page.body.map((p) => <p key={p}>{p}</p>)}
+      {page.pricingItems && page.pricingItems.length > 0 && (
+        <>
+          <h2>Plans & pricing</h2>
+          <table className="facts">
+            <thead><tr><th scope="col">Plan</th><th scope="col">Price</th><th scope="col">Tax / billing</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              {page.pricingItems.map((row) => (
+                <tr key={row.name}>
+                  <td><strong>{row.name}</strong></td>
+                  <td>{row.price}</td>
+                  <td>{[row.tax, row.billing, row.payment].filter(Boolean).join(" · ") || "—"}</td>
+                  <td>{row.note ?? "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
+      {page.aeo && (
+        <>
+          <h2>In one line</h2>
+          <p><strong>{page.aeo.question}</strong></p>
+          <p>{page.aeo.answer}</p>
+        </>
+      )}
+      {evidence.length > 0 && (
+        <>
+          <h2>Evidence receipts</h2>
+          {evidence.map((receipt) => (
+            <div key={receipt.id}>
+              <p><strong>{receipt.field}</strong> · {receipt.status} · {receipt.publisher}</p>
+              <p className="muted">Retrieved {receipt.retrievedAt}</p>
+              <code>{receipt.contentHash}</code>
+              <p><a href={receipt.sourceUrl}>Open evidence source ↗</a></p>
+            </div>
+          ))}
+        </>
+      )}
+      {page.seeAlso && page.seeAlso.length > 0 && (
+        <>
+          <h2>See also</h2>
+          <ul>
+            {page.seeAlso.map((item) => <li key={item.href}><Link href={item.href}>{item.label}</Link></li>)}
+          </ul>
+        </>
+      )}
       {slug === "ai-agent-rankings" && <><h2>Where to continue</h2><ul><li><Link href="/agents">Verified AI agents</Link></li><li><Link href="/compare">Evidence-ready comparisons</Link></li><li><Link href="/methodology">Publication methodology</Link></li></ul></>}
       {slug === "local-llm-benchmarks-india" && <><h2>Verified Indian model cards</h2><ul>{models.map((m) => <li key={m.id}><Link href={`/models/${m.slug}`}>{m.name}</Link> — {m.verification}</li>)}</ul></>}
     </div>
