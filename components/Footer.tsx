@@ -1,14 +1,19 @@
 import Link from "next/link";
+
 export function Footer() {
   return (
     <footer className="footer">
       <div className="shell footerGrid">
-        <div><strong>BestAIAgent.in</strong><p>Evidence first. Unknown stays unknown.</p></div>
-        <div><h3>Entities</h3><Link href="/agents">Agents</Link><Link href="/models">Models</Link><Link href="/frameworks">Frameworks</Link><Link href="/providers">Providers</Link></div>
-        <div><h3>Authority</h3><Link href="/methodology">Methodology</Link><Link href="/editorial-policy">Editorial policy</Link><Link href="/corrections">Corrections</Link><Link href="/knowledge-graph">Knowledge graph</Link></div>
-        <div><h3>Machine</h3><a href="/sitemap.xml">Sitemap</a><a href="/robots.txt">Robots</a><a href="/llms.txt">llms.txt</a><a href="/catalog.json">catalog.json</a></div>
+        <div className="footerBrand">
+          <Link href="/" className="brand"><span className="brandMark">✦</span><span className="brandWords">BestAI<span>Agent</span></span></Link>
+          <p>Discover, compare and verify AI agents through primary-source evidence. India-built. No pay-to-rank.</p>
+          <div className="footerPills"><span>Evidence first</span><span>Unknown stays unknown</span></div>
+        </div>
+        <div><h3>Platform</h3><Link href="/agents">AI agents</Link><Link href="/categories">Categories</Link><Link href="/compare">Compare</Link><Link href="/india">Built in India</Link><Link href="/mcp">MCP</Link></div>
+        <div><h3>Authority</h3><Link href="/research">Research</Link><Link href="/methodology">Methodology</Link><Link href="/editorial-policy">Editorial policy</Link><Link href="/review-process">Review process</Link><Link href="/corrections">Corrections</Link></div>
+        <div><h3>Machine & legal</h3><a href="/sitemap.xml">Sitemap</a><a href="/robots.txt">Robots</a><a href="/llms.txt">llms.txt</a><a href="/catalog.json">catalog.json</a><Link href="/privacy-policy">Privacy</Link><Link href="/terms">Terms</Link></div>
       </div>
-      <div className="shell footnote">© 2026 BestAIAgent.in · India-built · Independent · No pay-to-rank</div>
+      <div className="shell footnote"><span>© 2026 BestAIAgent.in</span><span>Canonical: www.bestaiagent.in</span><span>Made in India 🇮🇳</span></div>
     </footer>
   );
 }

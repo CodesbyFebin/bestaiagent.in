@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "sourceDate": "2026-08-20",
+  "reviewedAt": "2026-08-23",
+  "inputs": {
+    "performancePageRows": 300,
+    "crawledCurrentlyNotIndexedRows": 36,
+    "soft404Rows": 83,
+    "duplicateCanonicalRows": 39,
+    "rawObservedUrlCount": 457,
+    "normalizedPathCount": 450,
+    "rawObservedUrlSetSha256": "7b613ce1506e099001f9ab9084d3015d42b377f7f079a1c13d9ef3f08102af49",
+    "normalizedPathSetSha256": "b4cfb5a48b4cb4d2a7319fda620ba588a30583b1b423065fd321771c179f3708"
+  },
+  "initialTriage": {
+    "KEEP": 31,
+    "REBUILD": 48,
+    "301": 24,
+    "QUARANTINE": 347
+  },
+  "defaultDisposition": "QUARANTINE",
+  "policy": "Historical observation is not publication approval. Any observed path without a proven clean canonical, an explicit redirect, or a substantive evidence-backed rebuild remains quarantined. Do not recreate Soft 404s or thin generated pages merely to restore historical URL counts.",
+  "implementedAuthorityPages": [
+    "/ai-agent-rankings",
+    "/cursor-pricing",
+    "/github-copilot-pricing",
+    "/claude-code-pricing",
+    "/what-is-mcp",
+    "/best-free-ai-agents",
+    "/best-free-ai-coding-agents",
+    "/ai-agent-benchmarks",
+    "/coding-agents-hub",
+    "/ai-agent-market-map",
+    "/glossary-hub"
+  ],
+  "nextEvidenceCandidatesByHistoricalDemand": [
+    "/best-ai-voice-agent",
+    "/ai-agents-for-finance",
+    "/cursor-alternatives",
+    "/ai-agents-for-security",
+    "/ai-agents-for-business",
+    "/cursor-vs-codex",
+    "/best-ai-agent-no-code-platform",
+    "/claude-code-alternatives",
+    "/vapi-pricing",
+    "/best-ai-agent-libraries",
+    "/ai-agents-for-healthcare",
+    "/ai-agent-tools",
+    "/chatgpt-vs-perplexity",
+    "/ai-agents-for-procurement",
+    "/flowise-alternatives"
+  ]
+}

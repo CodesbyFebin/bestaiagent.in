@@ -1,6 +1,6 @@
 {
   "name": "bestaiagent-in",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "Evidence-first authority graph for AI agents, models, frameworks, providers and MCP infrastructure.",
   "engines": { "node": "22.x" },
@@ -11,7 +11,9 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "verify:catalog": "node scripts/verify-catalog.mjs",
-    "verify": "npm run verify:catalog && npm run typecheck && npm run lint && npm run build"
+    "verify:gsc": "node scripts/verify-gsc-migration.mjs",
+    "verify:quarantine": "node scripts/verify-quarantine.mjs",
+    "verify": "npm run verify:catalog && npm run verify:gsc && npm run verify:quarantine && npm run typecheck && npm run lint && npm run build"
   },
   "dependencies": {
     "next": "16.2.6",

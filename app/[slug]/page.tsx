@@ -2,39 +2,33 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
+import { authorityPages } from "@/lib/authority-pages";
+import { getAuthorityEvidence } from "@/lib/authority-evidence";
 import { legacyPages } from "@/lib/legacy";
 import { entitiesByType } from "@/lib/catalog";
 import { SITE } from "@/lib/site";
 
-type AuthorityPage = { title: string; description: string; body: string[]; index: boolean };
+type LegacyAuthorityPage = { title: string; description: string; body: string[]; index: boolean };
 type P = { params: Promise<{ slug: string }> };
 
-const recoveryPages: Record<string, AuthorityPage> = {
-  "ai-agent-rankings": {
-    title: "AI agent rankings: evidence-first evaluation",
-    description: "A transparent AI-agent ranking methodology based on verifiable evidence rather than synthetic scores.",
-    body: [
-      "BestAIAgent.in does not publish a universal 9.x score or declare a single AI agent best for every task. A useful ranking must begin with a defined use case and a reproducible evidence set.",
-      "Current public comparisons are limited to fields that can be traced to primary sources or reproducible evaluation data. Repository identity, deployment model, licensing, provider support, pricing and benchmark claims are evaluated independently rather than inherited from popularity.",
-      "When evidence is incomplete, the field remains unknown. When a comparison cannot be reproduced, the page stays noindex until the source bundle, methodology and raw outputs are sufficient for review.",
-      "Use the Agents directory for verified identities and the Compare section for evidence-ready comparisons. This page is the canonical replacement for the historical AI-agent rankings URL."
-    ],
-    index: true
-  }
-};
-
-function getAuthorityPage(slug: string): AuthorityPage | undefined {
-  return recoveryPages[slug] ?? legacyPages[slug];
+function getLegacyPage(slug: string): LegacyAuthorityPage | undefined {
+  return legacyPages[slug];
 }
 
 export function generateStaticParams() {
-  return [...new Set([...Object.keys(legacyPages).filter((s) => !s.includes("/")), ...Object.keys(recoveryPages)])].map((slug) => ({ slug }));
+  return [...new Set([
+    ...Object.keys(legacyPages).filter((slug) => !slug.includes("/")),
+    ...Object.keys(authorityPages)
+  ])].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { slug } = await params;
-  const page = getAuthorityPage(slug);
+  const authority = authorityPages[slug];
+  const legacy = getLegacyPage(slug);
+  const page = authority ?? legacy;
   if (!page) return { title: "Not found", robots: { index: false, follow: true } };
+
   return {
     title: page.title,
     description: page.description,
@@ -46,20 +40,69 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
 
 export default async function Page({ params }: P) {
   const { slug } = await params;
-  const page = getAuthorityPage(slug);
-  if (!page) notFound();
+  const authority = authorityPages[slug];
+  const legacy = getLegacyPage(slug);
+  if (!authority && !legacy) notFound();
+
+  const page = authority ?? legacy!;
   const models = entitiesByType("model");
   const url = `${SITE.url}/${slug}`;
+  const evidence = authority ? getAuthorityEvidence(slug) : [];
+
   return <div className="shell detail">
     <div className="breadcrumbs"><Link href="/">Home</Link> / {page.title}</div>
-    <JsonLd data={{ "@type": "WebPage", name: page.title, url, description: page.description, isPartOf: { "@type": "WebSite", name: "BestAIAgent.in", url: SITE.url } }} />
-    <p className="eyebrow">Authority page</p>
+    <JsonLd data={{
+      "@type": "WebPage",
+      name: page.title,
+      url,
+      description: page.description,
+      isPartOf: { "@type": "WebSite", name: "BestAIAgent.in", url: SITE.url },
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+          { "@type": "ListItem", position: 2, name: page.title, item: url }
+        ]
+      }
+    }} />
+
+    <p className="eyebrow">{authority ? "Evidence-first authority page" : "Authority page"}</p>
     <h1 style={{ fontSize: "48px" }}>{page.title}</h1>
     <p className="lead">{page.description}</p>
-    <div className="prose">
-      {page.body.map((p) => <p key={p}>{p}</p>)}
-      {slug === "ai-agent-rankings" && <><h2>Where to continue</h2><ul><li><Link href="/agents">Verified AI agents</Link></li><li><Link href="/compare">Evidence-ready comparisons</Link></li><li><Link href="/methodology">Publication methodology</Link></li></ul></>}
-      {slug === "local-llm-benchmarks-india" && <><h2>Verified Indian model cards</h2><ul>{models.map((m) => <li key={m.id}><Link href={`/models/${m.slug}`}>{m.name}</Link> — {m.verification}</li>)}</ul></>}
-    </div>
+
+    {authority ? <>
+      <section className="evidence" aria-labelledby="direct-answer-heading">
+        <h2 id="direct-answer-heading">Direct answer</h2>
+        <p>{authority.directAnswer}</p>
+        <p className="muted">Last reviewed {authority.lastReviewed}</p>
+      </section>
+
+      <div className="prose">
+        {authority.sections.map((section) => <section key={section.heading}>
+          <h2>{section.heading}</h2>
+          {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
+        </section>)}
+      </div>
+
+      {evidence.length > 0 && <section className="evidence" aria-labelledby="authority-evidence-heading">
+        <h2 id="authority-evidence-heading">Primary-source evidence</h2>
+        {evidence.map((record) => <div key={record.id} style={{ marginBottom: "20px" }}>
+          <p><strong>{record.field}</strong> · {record.status}</p>
+          <p className="muted">Publisher: {record.publisher} · Retrieved {record.retrievedAt}</p>
+          <p><a href={record.sourceUrl}>Open first-party source ↗</a></p>
+          <code>{record.contentHash}</code>
+        </div>)}
+        <p className="warning">Volatile facts such as pricing should be checked at the first-party source before purchase or deployment.</p>
+      </section>}
+
+      <section className="prose" aria-labelledby="continue-heading">
+        <h2 id="continue-heading">Continue researching</h2>
+        <ul>{authority.relatedLinks.map((item) => <li key={item.href}><Link href={item.href}>{item.label}</Link></li>)}</ul>
+      </section>
+    </> : <div className="prose">
+      {legacy!.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+      {slug === "local-llm-benchmarks-india" && <><h2>Verified Indian model cards</h2><ul>{models.map((model) => <li key={model.id}><Link href={`/models/${model.slug}`}>{model.name}</Link> — {model.verification}</li>)}</ul></>}
+    </div>}
   </div>;
 }

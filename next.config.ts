@@ -1,19 +1,15 @@
 import type { NextConfig } from "next";
+import legacyRedirects from "./data/legacy-redirects.json";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   async redirects() {
-    return [
-      { source: "/mcp-directory", destination: "/mcp", permanent: true },
-      { source: "/mcp-servers", destination: "/mcp", permanent: true },
-      { source: "/best-ai-agent-frameworks", destination: "/frameworks", permanent: true },
-      { source: "/agents/crewai", destination: "/frameworks/crewai", permanent: true },
-      { source: "/agents/langgraph", destination: "/frameworks/langgraph", permanent: true },
-      { source: "/agents/autogen", destination: "/frameworks/autogen", permanent: true },
-      { source: "/rankings", destination: "/ai-agent-rankings", permanent: true },
-      { source: "/cursor-ai", destination: "/agents/cursor", permanent: true }
-    ];
+    return Object.entries(legacyRedirects).map(([source, destination]) => ({
+      source,
+      destination,
+      permanent: true
+    }));
   },
   async rewrites() {
     return [
