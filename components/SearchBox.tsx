@@ -41,10 +41,10 @@ export function SearchBox() {
         id="entity-search"
         value={q}
         onChange={(event) => void runSearch(event.target.value)}
-        placeholder="Cursor pricing, MCP, OpenHands, Sarvam, LangGraph…"
+        placeholder="Cursor pricing, MCP stdio, PostgreSQL MCP, Sarvam, LangGraph…"
         autoComplete="off"
       />
-      <p className="muted">{loading ? "Searching…" : q.length > 1 ? `${results.length} result(s)` : "Search verified entities and reviewed authority guides."}</p>
+      <p className="muted">{loading ? "Searching…" : q.length > 1 ? `${results.length} result(s)` : "Search verified entities, reviewed guides and mapped MCP intent clusters."}</p>
       <div className="searchResults" aria-live="polite">
         {results.map((result) => <a key={result.id} href={result.url}>
           <strong>{result.name}</strong>

@@ -13,7 +13,8 @@
     "verify:catalog": "node scripts/verify-catalog.mjs",
     "verify:gsc": "node scripts/verify-gsc-migration.mjs",
     "verify:quarantine": "node scripts/verify-quarantine.mjs",
-    "verify": "npm run verify:catalog && npm run verify:gsc && npm run verify:quarantine && npm run typecheck && npm run lint && npm run build"
+    "verify:mcp-clusters": "node scripts/verify-mcp-clusters.mjs",
+    "verify": "npm run verify:catalog && npm run verify:gsc && npm run verify:quarantine && npm run verify:mcp-clusters && npm run typecheck && npm run lint && npm run build"
   },
   "dependencies": {
     "next": "16.2.6",

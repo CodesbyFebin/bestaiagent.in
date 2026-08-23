@@ -1,5 +1,6 @@
 import { authorityPages } from "@/lib/authority-pages";
 import { publicEntities } from "@/lib/catalog";
+import { mcpTopicClusters } from "@/lib/mcp-topic-clusters";
 
 export async function GET(request: Request) {
   const q = new URL(request.url).searchParams.get("q")?.trim().toLowerCase() ?? "";
@@ -33,6 +34,18 @@ export async function GET(request: Request) {
       url: `/${slug}`
     }));
 
-  const results = [...entityResults, ...authorityResults].slice(0, 50);
+  const mcpIntentResults = mcpTopicClusters
+    .filter((cluster) => `${cluster.name} ${cluster.primaryQuery} ${cluster.secondaryQuery}`.toLowerCase().includes(q))
+    .map((cluster) => ({
+      id: `mcp-intent:${cluster.id}`,
+      name: cluster.name,
+      type: "MCP intent",
+      slug: `cluster-${cluster.id}`,
+      summary: `${cluster.primaryQuery} · ${cluster.secondaryQuery}`,
+      verification: cluster.claimSensitive ? "claim-sensitive" : "intent-mapped",
+      url: cluster.canonicalTarget
+    }));
+
+  const results = [...entityResults, ...authorityResults, ...mcpIntentResults].slice(0, 50);
   return Response.json({ query: q, count: results.length, results });
 }
