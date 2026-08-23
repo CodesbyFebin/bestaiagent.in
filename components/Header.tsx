@@ -4,7 +4,7 @@ const links = [
   ["/agents", "AI Agents"],
   ["/categories", "Categories"],
   ["/compare", "Compare"],
-  ["/india", "Built in India"],
+  ["/indian-ai", "Indian AI"],
   ["/mcp", "MCP"],
   ["/research", "Resources"],
   ["/pricing", "Pricing"]
