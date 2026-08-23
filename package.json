@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "verify:catalog": "node scripts/verify-catalog.mjs",
     "verify:gsc": "node scripts/verify-gsc-migration.mjs",
-    "verify": "npm run verify:catalog && npm run verify:gsc && npm run typecheck && npm run lint && npm run build"
+    "verify:quarantine": "node scripts/verify-quarantine.mjs",
+    "verify": "npm run verify:catalog && npm run verify:gsc && npm run verify:quarantine && npm run typecheck && npm run lint && npm run build"
   },
   "dependencies": {
     "next": "16.2.6",
