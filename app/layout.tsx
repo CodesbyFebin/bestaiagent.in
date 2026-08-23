@@ -9,8 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { default: "BestAIAgent.in — Evidence-backed AI agent & model graph", template: "%s | BestAIAgent.in" },
   description: SITE.description,
-  alternates: { canonical: "/" },
-  openGraph: { type: "website", siteName: SITE.name, title: SITE.name, description: SITE.description, url: SITE.url },
+  openGraph: { type: "website", siteName: SITE.name, title: SITE.name, description: SITE.description },
   twitter: { card: "summary_large_image", title: SITE.name, description: SITE.description },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } }
 };
