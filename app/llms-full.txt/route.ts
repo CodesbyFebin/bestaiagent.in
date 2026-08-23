@@ -17,6 +17,11 @@ export async function GET() {
       return `- ${page.title} (authority page) — ${SITE.url}/${slug} — reviewed: ${page.lastReviewed}${sources.length ? ` — sources: ${sources.join(", ")}` : ""}`;
     });
 
+  const standalonePillars = [
+    `- Indian AI: models, research, policy and developer resources (pillar page) — ${SITE.url}/indian-ai — sources: https://www.meity.gov.in/indiaai-mission, https://aikosh.indiaai.gov.in/, https://bhashini.gov.in/, https://ai4bharat.iitm.ac.in/`,
+    `- India & Indic AI model hub — ${SITE.url}/india`
+  ];
+
   const lines = [
     "# BestAIAgent.in — full public authority index",
     "",
@@ -26,7 +31,10 @@ export async function GET() {
     ...entityLines,
     "",
     "## Authority guides",
-    ...authorityLines
+    ...authorityLines,
+    "",
+    "## Standalone pillars",
+    ...standalonePillars
   ];
 
   return new Response(lines.join("\n"), { headers: { "Content-Type": "text/plain; charset=utf-8" } });
