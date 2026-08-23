@@ -5,7 +5,6 @@ import { mcpServers } from "@/lib/mcp";
 import {
   clustersForBucket,
   mcpBucketMeta,
-  mcpTopicClusters,
   mcpTopicClusterStats,
   type McpIntentBucket
 } from "@/lib/mcp-topic-clusters";
