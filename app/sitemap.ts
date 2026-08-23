@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/mcp",
     "/mcp/servers",
     "/india",
+    "/indian-ai",
     "/research",
     ...legacyPaths,
     ...authorityPaths,
@@ -33,5 +34,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...publicComparisons.map((comparison) => `/compare/${comparison.slug}`)
   ]);
 
-  return [...paths].map((path) => ({ url: `${SITE.url}${path}`, lastModified: "2026-08-23" }));
+  return [...paths].map((path) => ({ url: `${SITE.url}${path}`, lastModified: "2026-08-24" }));
 }
