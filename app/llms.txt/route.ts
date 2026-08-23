@@ -20,6 +20,7 @@ Publication rule: discovery is not verification. Public entity detail pages requ
 - ${SITE.url}/mcp
 
 ## High-intent authority guides
+- ${SITE.url}/best-ai-agent
 - ${SITE.url}/cursor-pricing
 - ${SITE.url}/github-copilot-pricing
 - ${SITE.url}/claude-code-pricing
