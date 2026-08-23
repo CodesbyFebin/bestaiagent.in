@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { EntityCard } from "@/components/EntityCard";
 import { JsonLd } from "@/components/JsonLd";
@@ -7,6 +8,11 @@ import { evidence, entitiesByType, publicEntities, isEvidenceVerified } from "@/
 import { SITE } from "@/lib/site";
 import { publicComparisons } from "@/lib/comparisons";
 import { categories } from "@/lib/legacy";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: { url: SITE.url }
+};
 
 const authorityEntryPoints = [
   ["Cursor pricing in India", "/cursor-pricing", "Current first-party plan evidence, including the India-only Start plan.", "₹"],
