@@ -1,3 +1,4 @@
+import { aiTopicClusters } from "@/lib/ai-topic-clusters";
 import { authorityPages } from "@/lib/authority-pages";
 import { publicEntities } from "@/lib/catalog";
 
@@ -33,6 +34,18 @@ export async function GET(request: Request) {
       url: `/${slug}`
     }));
 
-  const results = [...entityResults, ...authorityResults].slice(0, 50);
+  const intentResults = aiTopicClusters
+    .filter((cluster) => `${cluster.name} ${cluster.primaryQuery} ${cluster.secondaryQuery}`.toLowerCase().includes(q))
+    .map((cluster) => ({
+      id: `intent:${cluster.id}`,
+      name: cluster.name,
+      type: "intent",
+      slug: `cluster-${cluster.id}`,
+      summary: `${cluster.primaryQuery} · ${cluster.secondaryQuery}`,
+      verification: cluster.claimSensitive ? "claim-sensitive" : "mapped-intent",
+      url: `${cluster.canonicalTarget}`
+    }));
+
+  const results = [...entityResults, ...authorityResults, ...intentResults].slice(0, 50);
   return Response.json({ query: q, count: results.length, results });
 }
