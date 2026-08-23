@@ -17,6 +17,7 @@ Publication rule: discovery is not verification. Public entity detail pages requ
 - ${SITE.url}/categories
 - ${SITE.url}/compare
 - ${SITE.url}/india
+- ${SITE.url}/indian-ai
 - ${SITE.url}/mcp
 
 ## High-intent authority guides
