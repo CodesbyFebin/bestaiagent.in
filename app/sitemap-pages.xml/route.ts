@@ -16,6 +16,7 @@ export async function GET() {
 
   return xmlResponse([...new Set([
     SITE.url,
+    `${SITE.url}/indian-ai`,
     ...legacyUrls,
     ...authorityUrls
   ])]);
