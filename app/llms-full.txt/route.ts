@@ -1,3 +1,4 @@
+import { aiTopicClusterStats } from "@/lib/ai-topic-clusters";
 import { authorityPages } from "@/lib/authority-pages";
 import { getAuthorityEvidence } from "@/lib/authority-evidence";
 import { publicEntities } from "@/lib/catalog";
@@ -21,6 +22,9 @@ export async function GET() {
     "# BestAIAgent.in — full public authority index",
     "",
     "Public entity detail pages below pass the entity publication gate. Authority guides are separately reviewed and may include dated page-level evidence receipts.",
+    "",
+    "## Best AI Agent intent pillar",
+    `- Best AI Agents by use case — ${SITE.url}/best-ai-agent — ${aiTopicClusterStats.clusters} mapped topic clusters / ${aiTopicClusterStats.searchTerms} search intents. Search intent is not treated as factual product evidence.`,
     "",
     "## Verified entities",
     ...entityLines,
