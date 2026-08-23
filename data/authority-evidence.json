@@ -1,0 +1,67 @@
+[
+  {
+    "id": "ev-page-cursor-pricing-2026-08-23",
+    "pageSlug": "cursor-pricing",
+    "field": "current-plan-pricing",
+    "sourceUrl": "https://cursor.com/docs/models-and-pricing",
+    "publisher": "Cursor",
+    "retrievedAt": "2026-08-23",
+    "contentHash": "sha256:5b8777dad2f07bc294cde6183ddf36eb1c06877225afbcd0e9668028663fa658",
+    "status": "verified",
+    "snapshot": {
+      "start": { "availability": "India only", "price": "₹649/month", "tax": "tax inclusive", "billing": "monthly in INR", "payments": ["UPI", "credit card", "debit card"] },
+      "pro": { "price": "$20/month" },
+      "proPlus": { "price": "$60/month" },
+      "ultra": { "price": "$200/month" }
+    }
+  },
+  {
+    "id": "ev-page-github-copilot-pricing-2026-08-23",
+    "pageSlug": "github-copilot-pricing",
+    "field": "current-plan-pricing",
+    "sourceUrl": "https://github.com/features/copilot/plans",
+    "publisher": "GitHub",
+    "retrievedAt": "2026-08-23",
+    "contentHash": "sha256:2e2578ac5dfb9b1d60db941662c8bcfaa99c62f772adbd76ef1894b0abe5f556",
+    "status": "verified",
+    "snapshot": {
+      "free": "$0",
+      "pro": "$10/user/month",
+      "proPlus": "$39/user/month",
+      "max": "$100/user/month",
+      "business": "$19/user/month",
+      "enterprise": "$39/user/month"
+    }
+  },
+  {
+    "id": "ev-page-claude-code-pricing-2026-08-23",
+    "pageSlug": "claude-code-pricing",
+    "field": "current-plan-pricing",
+    "sourceUrl": "https://claude.com/product/claude-code",
+    "publisher": "Anthropic",
+    "retrievedAt": "2026-08-23",
+    "contentHash": "sha256:024aa784aba411ffd0a7d80c410007ca006da65ac2440cea8861702a915d9f7f",
+    "status": "verified",
+    "snapshot": {
+      "proAnnualEffective": "$17/month ($200 billed up front)",
+      "proMonthly": "$20/month",
+      "max5x": "$100/month",
+      "max20x": "$200/month",
+      "claudeCodeIncludedIn": ["Pro", "Max 5x", "Max 20x"]
+    }
+  },
+  {
+    "id": "ev-page-mcp-overview-2026-08-23",
+    "pageSlug": "what-is-mcp",
+    "field": "protocol-identity",
+    "sourceUrl": "https://modelcontextprotocol.io/docs/getting-started/intro",
+    "publisher": "Model Context Protocol",
+    "retrievedAt": "2026-08-23",
+    "contentHash": "sha256:893f8ad450ff76675b068d08a9eb98daef0fe7dc01e90f17c82d2795c86fe287",
+    "status": "verified",
+    "snapshot": {
+      "description": "Open protocol for connecting AI applications or agents with external data sources, tools, and apps",
+      "serverPrimitives": ["prompts", "resources", "tools"]
+    }
+  }
+]
